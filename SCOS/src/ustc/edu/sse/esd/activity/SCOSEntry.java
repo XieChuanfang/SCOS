@@ -5,25 +5,22 @@ import android.os.Bundle;
 
 /**
  * 
- * SCOS鍏ュ彛Activity. <br>
- * 鏄剧ずSCOS鐨凩ogo鍥剧墖.
+ * SCOSEntry Activity.
+ * 加载一个logo图片
+ * Copyright: Copyright (c) 2015-1-31 下午4:23:25
  * <p>
- * Copyright: Copyright (c) 2015-1-31 涓嬪崍4:23:25
- * <p>
- * Company: 涓浗绉戝鎶�湳澶у杞欢瀛﹂櫌
- * <p>
+ * Company: 中国科学技术大学   软件学院
+ *
  * 
  * @author moon
  * @version 1.0.0
  */
 public class SCOSEntry extends Activity {
 
-	/**
-	 * Activity鐢熷懡鍛ㄦ湡涓殑閲嶈鏂规硶
-	 */
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.entry); // 鍔犺浇甯冨眬鏂囦欢
+		setContentView(R.layout.entry); // 加载配置文件
 	}
 }
