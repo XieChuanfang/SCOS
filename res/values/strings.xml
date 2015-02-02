@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SCOS</string>
+    <string name="hello_world">Hello world!</string>
+        
+    <string name="txt_order">点菜</string>
+    <string name="txt_check_order">查询订单</string>
+    <string name="txt_login_register">登录/注册</string>
+    <string name="txt_help">帮助</string>
+    
+    
+    <string name="btn_login">登录</string>
+    <string name="btn_return">返回</string>
+    <string name="txt_login">登录名</string>
+    <string name="txt_password">密码</string>
+    
+    
+
+</resources>
