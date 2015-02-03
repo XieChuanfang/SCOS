@@ -38,6 +38,7 @@
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN" />
                 <category android:name="scos.intent.category.SCOSLAUNCHER" />
+                <!-- DEFAULT必须加 -->
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

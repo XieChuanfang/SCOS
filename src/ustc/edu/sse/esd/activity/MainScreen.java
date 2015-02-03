@@ -13,15 +13,15 @@ import android.widget.Toast;
  * 导航页activity，由此导航到点菜，查看订单，登录/注册和帮助
  * Copyright: Copyright (c) 2015-2-1 19:23:25
  * Company: 中国科学技术大学   软件学院
- * @author moon
+ * @author moon：代码编写，star：代码整理
  * @version 1.1
  * 
  */
 public class MainScreen extends Activity  {
-	private final static int requestCode = 1;   //请求activity返回结果常亮
-	private ImageView login_register;
-	private RelativeLayout order_layout;
-	private RelativeLayout check_order_layout;
+	private final static int myRequestCode = 1;   //请求activity返回结果常量
+	private ImageView login_register; // 登录注册的图片
+	private RelativeLayout order_layout; // 点菜的布局
+	private RelativeLayout check_order_layout; // 查看订单的布局 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,9 @@ public class MainScreen extends Activity  {
 		login_register.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) { // 跳转到登录注册界面
 				Intent intent = new Intent(MainScreen.this, LoginOrRegister.class);
-				startActivityForResult(intent, requestCode);
+				startActivityForResult(intent, myRequestCode);
 			}
 		});
 	}
@@ -47,7 +46,6 @@ public class MainScreen extends Activity  {
 	 * 初始化视图
  	*/
 	private void viewInit() {
-		// TODO Auto-generated method stub
 		login_register = (ImageView) findViewById(R.id.login_register);
 		order_layout = (RelativeLayout) findViewById(R.id.order_layout);
 		check_order_layout = (RelativeLayout) findViewById(R.id.check_order_layout);
@@ -68,12 +66,11 @@ public class MainScreen extends Activity  {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		String strLogin = data.getStringExtra("login");  //获取返回值
 		
-		if (requestCode == 1) {        
+		if (requestCode == myRequestCode) {        
 			if (resultCode == LoginOrRegister.LOGIN_RESULT) {           //登录成功
 				
 				Toast.makeText(MainScreen.this, strLogin,

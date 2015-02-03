@@ -9,26 +9,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * 完成登陆和注册功能，完成后返回到MainScreen主导航界面
+ * 完成登录和注册功能，完成后返回到MainScreen主导航界面
  * Copyright: Copyright (c) 2015-2-1 20:30:12
  * Company: 中国科学技术大学   软件学院
- * @author moon
- * @version 1.1
+ * @author moon：代码编写，star：代码整理
+ * @version 1.2
  */
 public class LoginOrRegister extends Activity {
-	public final static int LOGIN_RESULT=2;   
-	public final static int RETURN_RESULT=3;
-	private Button btn_login;
-	private Button btn_return;
-	private TextView edt_login;
-	private TextView edt_password;
+	public final static int LOGIN_RESULT=2; // 登录结果  
+	public final static int RETURN_RESULT=3; // 注册结果 
+	private Button btn_login; // 登录按钮
+	private Button btn_return; // 注册按钮
+	private TextView edt_login; // 用户名输入框
+	private TextView edt_password; // 密码输入框
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
+		// 初始化视图组件
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_return = (Button) findViewById(R.id.btn_return);
 		edt_login = (TextView) findViewById(R.id.edt_login);
@@ -39,10 +38,10 @@ public class LoginOrRegister extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// 获取输入的数据
 				String name = edt_login.getText().toString();
 				String password = edt_password.getText().toString();
-				
+				// 验证输入是否符合规则
 				boolean isValid = checkValid(name, password);
 				
 				if(isValid) {
@@ -59,8 +58,7 @@ public class LoginOrRegister extends Activity {
 		btn_return.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) { // 跳转回主功能界面
 				Intent intent = new Intent(LoginOrRegister.this, MainScreen.class);
 				intent.putExtra("login", "Return");
 				setResult(RETURN_RESULT, intent);
@@ -73,11 +71,11 @@ public class LoginOrRegister extends Activity {
 	 * 判断用户名和密码是否符合规则
 	 * @param name:用户名
 	 * @param password:密码
-	 * @return 
+	 * @return boolean 是否验证成功
 	 */
 	private boolean checkValid(String name, String password) {
-		boolean isValid = false;
-		String regex = "^[\\w]{6,}+";
+		boolean isValid = false; // 标记是否验证通过
+		String regex = "^[\\w]{6,}+"; // 正则表达式
 		if(name.matches(regex) && password.matches(regex))
 			isValid = true;
 		else {
