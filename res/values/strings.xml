@@ -12,8 +12,22 @@
     
     <string name="btn_login">登录</string>
     <string name="btn_return">返回</string>
+    <string name="btn_register">注册</string>
     <string name="txt_login">登录名</string>
     <string name="txt_password">密码</string>
+    <string name="edt_login_hint">请输入用户名</string>
+    <string name="edt_password_hint">请输入密码</string>
+    
+    <string name="txt_welcome_login">登录SCOS</string>
+    
+    <string name="btn_cancel_order">退点</string>
+    <string name="ordered">已点菜品</string>
+    <string name="check_order">查看订单</string>
+    <string name="ask_for_service">呼叫服务</string>
+    <string name="btn_submit_order">提交订单</string>
+    <string name="btn_pay">结账</string>
+    
+    
     
     
 

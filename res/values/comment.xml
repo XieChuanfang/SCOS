@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- 四大菜品相应的备注,即评论 -->
+<string-array name="cool_food_comment">
+    <item>好看，而且好吃！</item>
+   	<item>很脆！</item>
+    <item>很香，香菇鲜美！</item>
+    <item>很脆！</item>
+</string-array>
+
+<string-array name="hot_food_comment">
+    <item>麻辣，肉很鲜很嫩</item>
+   	<item>酸酸甜甜！就像人生的滋味</item>
+    <item>很美味！</item>
+    <item>肉口即化，肥而不腻！</item>
+</string-array>
+
+<string-array name="seafood_comment">
+    <item>又香又脆！</item>
+   	<item>很香哦！</item>
+   	<item>很香，肉很鲜！</item>
+   	<item>味道鲜美，保持了螃蟹的美味！</item>
+</string-array>
+
+<string-array name="drinks_comment">
+  	<item>味道很浓！</item>
+   	<item>冰爽极了！</item>
+    <item>解渴！</item>
+    <item>很正宗！</item>
+</string-array>
+
+</resources>

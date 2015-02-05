@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<!-- 四大菜品的菜名 -->
+<string-array name="cool_food_name">
+    <item>凉拌花柳</item>
+   	<item>凉拌莲藕</item>
+    <item>凉拌香菇</item>
+    <item>凉拌黄瓜</item>
+</string-array>
+
+<string-array name="hot_food_name">
+   <item>水煮鱼</item>
+   	<item>糖醋排骨</item>
+    <item>鱼香肉丝</item>
+    <item>红烧肉</item>
+</string-array>
+
+<string-array name="seafood_name">
+    <item>酱爆鱿鱼</item>
+   	<item>爆炒龙虾</item>
+   	<item>炒花蛤</item>
+   	<item>蒸煮螃蟹</item>
+ 
+</string-array>
+
+<string-array name="drinks_name">
+  	<item>橙汁</item>
+   	<item>可口可乐</item>
+    <item>青岛啤酒</item>
+    <item>葡萄酒</item>
+</string-array>
+
+</resources>
