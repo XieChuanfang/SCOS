@@ -2,10 +2,10 @@ package ustc.edu.sse.esd.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import ustc.edu.sse.esd.model.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,67 +40,34 @@ public class MainScreen extends Activity {
 	private static final int HELP_ITEM_POSITION = 3; // 帮助在gridView中的position
 	private static final int HIDE_INDEX = 2; // 如果隐藏导航项中的点菜和查看订单，则数据源从该下表开始加载
 	private static final int NOT_HIDE_INDEX = 0; // 如果不隐藏导航项中的点菜和查看订单，则数据源从该下表开始加载
+	private SharedPreferences mySharedPreferences;   //用户信息配置文件操作对象
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main); // 加载视图
-
 		gridView = (GridView) findViewById(R.id.grid_view);
 
 		Intent intent = getIntent();
 		String str = intent.getStringExtra("hint");
 
-		/* 判断是否应该隐藏点菜和查看订单导航项 */
-		if (str.equals("FromEntry")) {
-			isHiden = false;
-			index = NOT_HIDE_INDEX;
-			Toast.makeText(MainScreen.this, str, Toast.LENGTH_SHORT).show();
-		} else {
-			isHiden = true;
-			index = HIDE_INDEX;
+		/*仅当用户为登录过SCOS而且不等于FromEntry才需要隐藏点菜和查看订单导航项*/
+		mySharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+		int loginState = mySharedPreferences.getInt("loginState", 0);
+		if(loginState != 0) { 
+			if (str.equals("FromEntry")) {
+				isHiden = false;
+				index = NOT_HIDE_INDEX;
+				Toast.makeText(MainScreen.this, str, Toast.LENGTH_SHORT).show();
+			} else {
+				isHiden = true;
+				index = HIDE_INDEX;
+			}
 		}
 		/* 显示Menu */
 		displayMenu();
 	}
-
-	/**
-	 * 导航项点击处理监听对象
-	 * 
-	 * @author moon
-	 * 
-	 */
-	private class ItemClickListener implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			switch (position) {
-			case ORDER_ITEM_POSITION:
-				Intent intent1 = new Intent(MainScreen.this, FoodView.class);
-				intent1.putExtra("login_user", loginUser);
-				startActivity(intent1); // 携带用户信息跳转到FoodView
-				break;
-			case CKECK_ORDER__ITEM_POSITION:
-				Intent intent2 = new Intent(MainScreen.this,
-						FoodOrderView.class);
-				intent2.putExtra("login_user", loginUser);
-				startActivity(intent2); // 携带用户信息跳转到FoodOrderView
-				break;
-			case LOGIN_REGISTER__ITEM_POSITION:
-				Intent intent3 = new Intent(MainScreen.this,
-						LoginOrRegister.class);
-				startActivityForResult(intent3, myRequestCode);
-				break;
-			case HELP_ITEM_POSITION:
-				break;
-			default:
-				break;
-			}
-
-		}
-	}
-
+	
 	/**
 	 * 回调函数
 	 */
@@ -158,5 +125,46 @@ public class MainScreen extends Activity {
 		gridView.setAdapter(saImageItems);
 		/* 为gridView导航项设置点击处理事件 */
 		gridView.setOnItemClickListener(new ItemClickListener());
+	}
+	
+	/**
+	 * 导航项点击处理监听对象
+	 * 
+	 * @author moon
+	 * 
+	 */
+	private class ItemClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			switch (position) {
+			case ORDER_ITEM_POSITION:
+				Intent intent1 = new Intent(MainScreen.this, FoodView.class);
+				intent1.putExtra("login_user", loginUser);
+				startActivity(intent1); // 携带用户信息跳转到FoodView
+				break;
+			case CKECK_ORDER__ITEM_POSITION:
+				Intent intent2 = new Intent(MainScreen.this,
+						FoodOrderView.class);
+				intent2.putExtra("login_user", loginUser);
+				startActivity(intent2); // 携带用户信息跳转到FoodOrderView
+				break;
+			case LOGIN_REGISTER__ITEM_POSITION:
+				Intent intent3 = new Intent(MainScreen.this,
+						LoginOrRegister.class);
+				startActivityForResult(intent3, myRequestCode);
+				break;
+			case HELP_ITEM_POSITION:
+				Intent intent4 = new Intent(MainScreen.this,
+						SCOSHelper.class);
+				startActivity(intent4);       // 跳转到SCOSHelper
+				break;
+
+			default:
+				break;
+			}
+
+		}
 	}
 }

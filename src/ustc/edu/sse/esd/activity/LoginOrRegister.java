@@ -3,6 +3,7 @@ package ustc.edu.sse.esd.activity;
 import ustc.edu.sse.esd.model.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +28,8 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 	private Button btn_return; // 返回按钮
 	private Button btn_register; // 注册按钮
 	private User loginUser; // 当前登陆用户信息
-
+	private SharedPreferences mySharedPreferences;  //用户配置信息操作对象
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // 去除标题栏
@@ -39,6 +41,16 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_return = (Button) findViewById(R.id.btn_return);
 		btn_register = (Button) findViewById(R.id.btn_register);
+		/*从文件名user中返回用户信息到实例mySharedPreferences*/
+		mySharedPreferences= getSharedPreferences("user", Activity.MODE_PRIVATE); 
+		String name = mySharedPreferences.getString("userName", "");   
+		/*如果userName为空,隐藏登录按钮；否则设置默认用户名和隐藏注册提示信息*/
+		if(name.isEmpty()) {       				  
+			btn_login.setVisibility(View.INVISIBLE);   
+		}else {                                  
+			edt_login.setText(name);   
+			btn_register.setVisibility(View.INVISIBLE);    
+		}
 		/* 设置点击监听事件 */
 		btn_login.setOnClickListener(this);
 		btn_return.setOnClickListener(this);
@@ -60,7 +72,6 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 		case R.id.btn_register:
 			onRegister();
 			break;
-
 		}
 	}
 
@@ -75,7 +86,13 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 		boolean isValid = checkValid(name, password);
 
 		if (isValid) {
-			loginUser = new User(name, password, true); // 创建用户对象：老用户
+			//将用户信息填入user.xml文件
+			SharedPreferences.Editor editor = mySharedPreferences.edit(); 
+			editor.putString("userName", name); 
+			editor.putInt("loginState", 1); 
+			editor.commit(); 
+			/*创建用户对象：老用户*/
+			loginUser = new User(name, password, true);
 			Intent intent = new Intent();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("login_user", loginUser);
@@ -90,6 +107,13 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 	 * 返回按钮点击处理事件
 	 */
 	private void onReturn() {
+		String name = mySharedPreferences.getString("userName", "");
+		/*如返回，且用户曾经登陆过，修改用户登录状态，改为失败*/
+		if(!name.isEmpty()) {
+			SharedPreferences.Editor editor = mySharedPreferences.edit();
+			editor.putInt("loginState", 0); 
+			editor.commit(); 
+		}
 		Intent intent = new Intent();
 		Bundle bundle = new Bundle();
 		bundle.putString("login", "Return");
@@ -109,7 +133,13 @@ public class LoginOrRegister extends Activity implements OnClickListener {
 		boolean isValid = checkValid(name, password);
 
 		if (isValid) {
-			loginUser = new User(name, password, false); // 创建用户对象：新用户
+			//将用户信息写入配置文件user.xml
+			SharedPreferences.Editor editor = mySharedPreferences.edit(); 
+			editor.putString("userName", name); 
+			editor.putInt("loginState", 1); 
+			editor.commit();     
+			/*创建用户对象：新用户*/
+			loginUser = new User(name, password, false); 
 			Intent intent = new Intent();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("login_user", loginUser);

@@ -1,7 +1,6 @@
 package ustc.edu.sse.esd.adapter;
 
 import java.util.ArrayList;
-
 import ustc.edu.sse.esd.activity.FoodOrderView;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.model.Food;
@@ -9,8 +8,8 @@ import ustc.edu.sse.esd.model.OrderedFood;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,11 +25,11 @@ import android.widget.Toast;
  * @version 2.0
  */
 public class FoodListAdapter extends BaseAdapter {
-	private Holder holder; // 消息传递机制
-	private Context mContext; // 上下文
-	private LayoutInflater inflater; // 填充器
-	private ArrayList<Food> fList; // 菜品集合
-	private Food food; // 菜品
+	private Holder holder;
+	private Context mContext;
+	private LayoutInflater inflater;
+	private ArrayList<Food> fList;
+	private Food food;
 	private OrderedFood myOrderedFood; // 已点菜品集合对象，即一个订单
 
 	public FoodListAdapter(Context mContext, ArrayList<Food> fList) {

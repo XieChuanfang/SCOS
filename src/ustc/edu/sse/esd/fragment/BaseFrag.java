@@ -2,7 +2,6 @@ package ustc.edu.sse.esd.fragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import ustc.edu.sse.esd.activity.FoodDetailed;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.FoodListAdapter;
@@ -57,8 +56,9 @@ public class BaseFrag extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+
 				Intent intent = new Intent(getActivity(), FoodDetailed.class);
-				intent.putExtra("food_list", fList);
+				intent.putExtra("food_list", (Serializable) fList);
 				intent.putExtra("position", position);
 				startActivity(intent);
 			}

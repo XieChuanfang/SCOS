@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fffcfcfc"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <!-- SCOS帮助 -->
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"   
+        android:background="@drawable/action_bar_backgroud"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="SCOS帮助" />
+    
+    <!-- 帮助导航项gridView -->
+	<GridView
+	    android:id="@+id/gridview"
+	    android:layout_marginTop="20dp"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:numColumns="auto_fit"
+	    android:verticalSpacing="10dp"
+	    android:horizontalSpacing="10dp"
+	    android:columnWidth="90dp"
+	    android:stretchMode="columnWidth"
+	    android:gravity="center" >
+	</GridView>
+</LinearLayout>

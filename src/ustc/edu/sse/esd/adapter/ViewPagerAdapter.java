@@ -1,7 +1,6 @@
 package ustc.edu.sse.esd.adapter;
 
 import java.util.List;
-
 import ustc.edu.sse.esd.model.OnReloadListener;
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import android.support.v4.app.FragmentPagerAdapter;
  * @version 2.0
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-	// Tab标签索引
 	private static final int TAB_INDEX_ONE = 0;
 	private static final int TAB_INDEX_TWO = 1;
 	private static final int TAB_INDEX_THREE = 2;
@@ -40,9 +38,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 		this.tabStr = tabStr;
 	}
 
-	/**
-	 * 获取不同索引的Fragment
-	 */
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
