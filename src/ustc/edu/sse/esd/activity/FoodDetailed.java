@@ -1,6 +1,8 @@
 package ustc.edu.sse.esd.activity;
 
 import java.util.ArrayList;
+
+import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.MyPagerAdapter;
 import ustc.edu.sse.esd.model.Food;
 import android.app.Activity;
@@ -56,14 +58,12 @@ public class FoodDetailed extends Activity {
 			nameView.setText(f.getName());
 			priceView.setText(f.getPrice() + "元/份");
 			commentEdit.setText(f.getComment());
-
 			/* 如果菜已点，设置按钮为退点，否则，设为点菜 */
 			if (f.isOrdered()) {
 				button.setText(R.string.btn_cancel_order);
 			} else {
 				button.setText(R.string.txt_order);
 			}
-
 			views.add(view); // 将当前View加到集合中
 		}
 

@@ -2,11 +2,12 @@ package ustc.edu.sse.esd.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.ViewPagerAdapter;
 import ustc.edu.sse.esd.fragment.OrderedFrag;
 import ustc.edu.sse.esd.fragment.SubmittedOrderedFrag;
 import ustc.edu.sse.esd.model.OnReloadListener;
-import ustc.edu.sse.esd.model.OrderedFood;
 import ustc.edu.sse.esd.model.User;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -32,8 +33,6 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 	private ViewPager mViewPager; // ViewPager对象
 	private ViewPagerAdapter mViewPagerAdapter; // ViewPager适配器对象
 	private User loginUser; // 当前登录用户
-	public final static OrderedFood myOrderedFood = new OrderedFood(); // 已点菜品对象,表示一个未下的订单
-	public final static OrderedFood mySubmittedFood = new OrderedFood(); // 已点菜品对象，表示一个已下的订单
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +47,9 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 		fragmentList.add(new OrderedFrag(FoodOrderView.this));
 		fragmentList
 				.add(new SubmittedOrderedFrag(FoodOrderView.this, loginUser));
-
 		setUpActionBar();
 		setUpViewPager();
 		setUpTabs();
-
 		mViewPager.setCurrentItem(position); // 初始化当前显示的Fragment View
 	}
 

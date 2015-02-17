@@ -1,6 +1,7 @@
 package ustc.edu.sse.esd.fragment;
 
 import ustc.edu.sse.esd.activity.FoodOrderView;
+import ustc.edu.sse.esd.activity.FoodView;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.OrderListAdapter;
 import ustc.edu.sse.esd.model.Food;
@@ -35,7 +36,7 @@ public class OrderedFrag extends Fragment implements OnClickListener {
 	public OrderedFrag(Context mContext) {
 		super();
 		this.mContext = mContext;
-		this.myOrderedFood = FoodOrderView.myOrderedFood;
+		this.myOrderedFood = FoodView.myOrderedFood;
 	}
 
 	@Override
@@ -76,9 +77,10 @@ public class OrderedFrag extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.btn_submit) {
 			int count1 = myOrderedFood.getCount();
 			int totalCost1 = myOrderedFood.getTotalCost();
-			OrderedFood submittedFood = FoodOrderView.mySubmittedFood;
+			OrderedFood submittedFood = FoodView.mySubmittedFood;
 			/* 将未下单菜品集合拷贝到已下单菜品集合中 */
-			for (int i = 0; i < count1; i++) {
+			int length = myOrderedFood.getOrderedList().size();       
+			for (int i = 0; i < length; i++) {
 				Food f = myOrderedFood.getOrderedList().get(i);
 				submittedFood.getOrderedList().add(f);
 			}

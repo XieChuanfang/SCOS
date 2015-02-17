@@ -2,6 +2,7 @@ package ustc.edu.sse.esd.fragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import ustc.edu.sse.esd.activity.FoodDetailed;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.FoodListAdapter;

@@ -80,7 +80,7 @@ public class OrderListAdapter extends BaseAdapter {
 		// 进行数据设置
 		holder.name.setText(orderFood.getName());
 		holder.price.setText(orderFood.getPrice() + "元/份");
-		holder.number.setText(orderFood.getNum() + "份");
+		holder.number.setText(orderFood.getOrderedNum() + "份");
 		holder.comment.setText(orderFood.getComment());
 		final Button button = holder.button;
 		/*
@@ -97,7 +97,13 @@ public class OrderListAdapter extends BaseAdapter {
 				int totalCost = myOrderedFood.getTotalCost();
 				totalCost = totalCost - cancelFood.getPrice();
 				myOrderedFood.setTotalCost(totalCost); // 更改总价
-				fList.remove(position); // 从数据集中删除cancelFood
+				//如果当前该菜数量超过1，则修改orderedNum即可，否则，删除集合cancelFood
+				int orderedNum = cancelFood.getOrderedNum();
+				if(orderedNum > 1) {
+					cancelFood.setOrderedNum(--orderedNum);        //已点数量减1
+				} else {
+					fList.remove(position); // 从数据集中删除cancelFood
+				}
 
 				// 通知系统更新ListView
 				OrderListAdapter.this.notifyDataSetChanged();

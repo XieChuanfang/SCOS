@@ -1,5 +1,6 @@
 package ustc.edu.sse.esd.activity;
 
+import ustc.edu.sse.esd.activity.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

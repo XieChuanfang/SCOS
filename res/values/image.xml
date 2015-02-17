@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-<!-- 四大菜品对应的图片ID -->
-<integer-array name="cool_food_img">
-   	<item>@drawable/cool_food1</item>
-   	<item>@drawable/cool_food2</item>
-    <item>@drawable/cool_food3</item>
-    <item>@drawable/cool_food4</item>
-</integer-array>
-
-<integer-array name="hot_food_img">
-   	<item>@drawable/hot_food1</item>
-   	<item>@drawable/hot_food2</item>
-    <item>@drawable/hot_food3</item>
-    <item>@drawable/hot_food4</item>
-</integer-array>
-
-<integer-array name="seafood_img">
-   	<item>@drawable/seafood1</item>
-   	<item>@drawable/seafood2</item>
-    <item>@drawable/seafood3</item>
-    <item>@drawable/seafood4</item>
-</integer-array>
-
-<integer-array name="drinks_img">
-   	<item>@drawable/drink1</item>
-   	<item>@drawable/drink2</item>
-    <item>@drawable/drink3</item>
-    <item>@drawable/drink4</item>
-</integer-array>
-
+    <!-- 四大菜品图片 -->
+    <integer-array name="food_img">
+	   	<item>@drawable/cool_food1</item>
+	   	<item>@drawable/cool_food2</item>
+	    <item>@drawable/cool_food3</item>
+	    <item>@drawable/cool_food4</item>
+	   	<item>@drawable/hot_food1</item>
+	   	<item>@drawable/hot_food2</item>
+	    <item>@drawable/hot_food3</item>
+	    <item>@drawable/hot_food4</item>
+	   	<item>@drawable/seafood1</item>
+	   	<item>@drawable/seafood2</item>
+	    <item>@drawable/seafood3</item>
+	    <item>@drawable/seafood4</item>
+	   	<item>@drawable/drink1</item>
+	   	<item>@drawable/drink2</item>
+	    <item>@drawable/drink3</item>
+	    <item>@drawable/drink4</item>
+	</integer-array>
+	
+    <!-- 更新菜品图片 -->
+    <integer-array name="food_update__img">
+	   	<item>@drawable/cool_food_update</item>
+	   	<item>@drawable/hot_food_update</item>
+	    <item>@drawable/seafood_update</item>
+	    <item>@drawable/drinks_update</item>
+	</integer-array>
 </resources>

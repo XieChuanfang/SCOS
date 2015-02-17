@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 四大菜品菜品种类 -->
+	<integer-array name="food_class">
+	    <item>@integer/cool_food_id</item>
+	   	<item>@integer/cool_food_id</item>
+	    <item>@integer/cool_food_id</item>
+	   	<item>@integer/cool_food_id</item>
+	   	<item>@integer/hot_food_id</item>
+	   	<item>@integer/hot_food_id</item>
+	    <item>@integer/hot_food_id</item>
+	    <item>@integer/hot_food_id</item>
+	    <item>@integer/seafood_id</item>
+	   	<item>@integer/seafood_id</item>
+	   	<item>@integer/seafood_id</item>
+	   	<item>@integer/seafood_id</item>
+	  	<item>@integer/drinks_id</item>
+	   	<item>@integer/drinks_id</item>
+	    <item>@integer/drinks_id</item>
+	    <item>@integer/drinks_id</item>
+	</integer-array>
+	
+    <!-- 更新菜品种类 -->
+	<integer-array name="food_update_class">
+	    <item>@integer/cool_food_id</item>
+	   	<item>@integer/hot_food_id</item>
+	   	<item>@integer/seafood_id</item>
+	  	<item>@integer/drinks_id</item>
+	</integer-array>
+</resources>

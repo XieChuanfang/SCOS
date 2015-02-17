@@ -3,6 +3,9 @@ package ustc.edu.sse.esd.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ustc.edu.sse.esd.activity.R;
+import ustc.edu.sse.esd.mail.MailSenderInfo;
+import ustc.edu.sse.esd.mail.SimpleMailSender;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -11,15 +14,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import es.source.code.mail.MailSenderInfo;
-import es.source.code.mail.SimpleMailSender;
+import android.widget.AdapterView.OnItemClickListener;
 /**
  * 帮助导航项类
 * Copyright: Copyright (c) 2015-2-5 20:47:25
@@ -29,32 +29,27 @@ import es.source.code.mail.SimpleMailSender;
 * @version 2.0
 */
 public class SCOSHelper extends Activity {
-	//帮助导航项图标
-	private int[] drawables = { R.drawable.user_agreement,                              
+	private int[] drawables = { R.drawable.user_agreement,                              //帮助导航项图标
 			R.drawable.about_system, R.drawable.man_help, R.drawable.sms_help,
 			R.drawable.mail_help };                                              
-	//帮助导航项文本说明
-	private String[] names = new String[] { "用户使用协议", "关于系统", "电话人工帮助", "短信帮助", 
+	private String[] names = new String[] { "用户使用协议", "关于系统", "电话人工帮助", "短信帮助",   //帮助导航项文本说明
 			"邮件帮助" };
-	private LayoutInflater inflater; //布局文件加载器
-	private GridView gridView; //GridView对象
-	//自定义ACTION常数，作为广播的Intent Filter识别常数
-	private final static String SMS_SEND_ACTIOIN = "SMS_SEND_ACTIOIN";  
+	private GridView gridView;                    //GridView对象
+	private final static String SMS_SEND_ACTIOIN = "SMS_SEND_ACTIOIN";             //自定义ACTION常数，作为广播的Intent Filter识别常数 
 	private final static String SMS_DELIVERED_ACTION = "SMS_DELIVERED_ACTION";
-	private final static int PROTOCOL_INDEX = 0; //用户使用协议
-	private final static int ABOUT_SYSTEM_INDEX = 1; //关于系统 
-	private final static int PHONE_HELP_INDEX = 2; //电话人工帮助
-	private final static int SMS_HELP_INDEX = 3; //短信帮助
-	private final static int MAIL_HELP_INDEX = 4; //邮件帮助
+	private final static int PROTOCOL_INDEX = 0;                   //用户使用协议
+	private final static int ABOUT_SYSTEM_INDEX = 1;               //关于系统 
+	private final static int PHONE_HELP_INDEX = 2;                 //电话人工帮助
+	private final static int SMS_HELP_INDEX = 3;                   //短信帮助
+	private final static int MAIL_HELP_INDEX = 4;                  //邮件帮助
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.help);
-		inflater = LayoutInflater.from(this);
 		gridView = (GridView) findViewById(R.id.gridview); 
-		
-		displayMenu();   //适配gridView，加载视图
+		/*适配gridView，加载视图*/
+		displayMenu();   
 	}
 	
 	/**
@@ -83,7 +78,10 @@ public class SCOSHelper extends Activity {
 	}
 
 	/**
-	 * 导航项点击处理监听对象 
+	 * 导航项点击处理监听对象
+	 * 
+	 * @author moon
+	 * 
 	 */
 	private class ItemClickListener implements OnItemClickListener {
 
@@ -95,18 +93,18 @@ public class SCOSHelper extends Activity {
 					break;
 				case ABOUT_SYSTEM_INDEX:
 					break;
-				case PHONE_HELP_INDEX://电话人工帮助 
-					phoneCall(); 
+				case PHONE_HELP_INDEX: 
+					phoneCall();                    //电话人工帮助
 					break;
-				case SMS_HELP_INDEX://发送短息服务
+				case SMS_HELP_INDEX:
 					String phoneNumber = "5554"; 
 					String message = "test scos helper";                
-					sendSMS(phoneNumber, message); 
+					sendSMS(phoneNumber, message);                     //发送短息服务
 					Toast.makeText(SCOSHelper.this, "求助短信发送成功",
 							Toast.LENGTH_SHORT).show();
 					break;
-				case MAIL_HELP_INDEX: //创建线程发送邮件
-					new Thread(new MailSender()).start();    
+				case MAIL_HELP_INDEX:
+					new Thread(new MailSender()).start();     //创建线程发送邮件
 					break;
 				default:
 					break;
@@ -165,6 +163,7 @@ public class SCOSHelper extends Activity {
 	/**
 	 * 使用java mail发送邮件：需要使用三个库：activition.jar,additional.jar和mail.jar
 	 * @author moon
+	 *
 	 */
 	private class MailSender extends Thread {
 
@@ -175,12 +174,12 @@ public class SCOSHelper extends Activity {
 			mailInfo.setMailServerPort("25");	  
 			mailInfo.setValidate(true);
 			mailInfo.setUserName("#########@163.com");	 	
-			mailInfo.setPassword("#############"); //您的邮箱密码
+			mailInfo.setPassword("#############");                 //您的邮箱密码
 			mailInfo.setFromAddress("#########@163.com");      
 			mailInfo.setToAddress("#########@163.com"); 
 			mailInfo.setSubject("设置邮箱标题");       
 			mailInfo.setContent("设置邮箱内容");
-			SimpleMailSender sms = new SimpleMailSender(); //发送邮件
+			SimpleMailSender sms = new SimpleMailSender();  //发送邮件
 			/*发送文体格式 */
 			if(sms.sendTextMail(mailInfo)) {
 				Message msg = h.obtainMessage();

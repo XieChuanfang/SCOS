@@ -2,6 +2,8 @@ package ustc.edu.sse.esd.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.model.User;
 import android.app.Activity;
 import android.content.Intent;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 四大菜品库存量 -->
+	<integer-array name="food_left_num">
+	    <item>20</item>
+	   	<item>19</item>
+	    <item>15</item>
+	   	<item>25</item>
+	   	<item>10</item>
+	   	<item>13</item>
+	    <item>9</item>
+	    <item>17</item>
+	    <item>17</item>
+	   	<item>23</item>
+	   	<item>20</item>
+	   	<item>25</item>
+	  	<item>30</item>
+	   	<item>50</item>
+	    <item>190</item>
+	    <item>55</item>
+	</integer-array>
+    <!-- 更新菜品库存量 -->
+	<integer-array name="food_update_left_num">
+	    <item>20</item>
+	   	<item>18</item>
+	    <item>15</item>
+	    <item>55</item>
+	</integer-array>
+</resources>

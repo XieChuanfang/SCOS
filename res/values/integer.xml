@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 定义菜品的类型ID -->
+     <integer name="cool_food_id">1</integer>
+     <integer name="hot_food_id">2</integer>
+     <integer name="seafood_id">3</integer>
+     <integer name="drinks_id">4</integer>
+</resources>

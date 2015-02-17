@@ -1,8 +1,7 @@
-package es.source.code.mail;
+package ustc.edu.sse.esd.mail;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-//注意引入是mail包中的Authenticator
+import javax.mail.Authenticator;                  //注意引入是mail包中的Authenticator
+import javax.mail.PasswordAuthentication; 
 /**
  *   验证类
  * @author moon
@@ -20,7 +19,6 @@ public class MyAuthenticator extends Authenticator{
 		this.password = password; 
 	} 
 	
-	@Override
 	protected PasswordAuthentication getPasswordAuthentication() {
 		return new PasswordAuthentication(userName, password);
 	}

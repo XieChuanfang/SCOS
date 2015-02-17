@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-<!-- 四大菜品相应的价格 -->
-<integer-array name="cool_food_price">
-    <item>10</item>
-   	<item>7</item>
-    <item>9</item>
-    <item>6</item>
-</integer-array>
-
-<integer-array name="hot_food_price">
-   	<item>28</item>
-   	<item>25</item>
-    <item>18</item>
-    <item>23</item>
-</integer-array>
-
-<integer-array name="seafood_price">
-    <item>24</item>
-   	<item>29</item>
-   	<item>23</item>
-   	<item>26</item>
- 
-</integer-array>
-
-<integer-array name="drinks_price">
-  	<item>6</item>
-   	<item>5</item>
-    <item>8</item>
-    <item>25</item>
-</integer-array>
-
+	<!-- 四大菜品相应的价格 -->
+	<integer-array name="food_price">
+	    <item>10</item>
+	   	<item>7</item>
+	    <item>9</item>
+	    <item>6</item>
+	   	<item>28</item>
+	   	<item>25</item>
+	    <item>18</item>
+	    <item>23</item>
+	    <item>24</item>
+	   	<item>29</item>
+	   	<item>23</item>
+	   	<item>26</item>
+	  	<item>6</item>
+	   	<item>5</item>
+	    <item>8</item>
+	    <item>25</item>
+	</integer-array>
+	<!-- 更新菜品相应的价格 -->
+	<integer-array name="food_update_price">
+	    <item>14</item>
+	   	<item>20</item>
+	    <item>35</item>
+	    <item>68</item>
+	</integer-array>
 </resources>

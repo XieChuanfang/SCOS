@@ -3,7 +3,8 @@ package ustc.edu.sse.esd.fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import ustc.edu.sse.esd.activity.FoodOrderView;
+
+import ustc.edu.sse.esd.activity.FoodView;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.model.Food;
 import ustc.edu.sse.esd.model.OrderedFood;
@@ -44,16 +45,14 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 	public SubmittedOrderedFrag(Context mContext, User loginUser) {
 		super();
 		this.mContext = mContext;
-		this.mySubmittedFood = FoodOrderView.mySubmittedFood;
+		this.mySubmittedFood = FoodView.mySubmittedFood;
 		this.loginUser = loginUser;
 	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 	}
-
 	/**
 	 * 为fragment加载视图：一个ListView和，一个TextView和一个Button
 	 */
@@ -81,30 +80,27 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 				+ "订单总价: " + mySubmittedFood.getTotalCost() + "元");
 		return mMainView;
 	}
-
 	/**
 	 * 初始化数据源
 	 * 
 	 * @return
 	 */
 	private List<HashMap<String, Object>> initData() {
-		HashMap<String, Object> item;
-		ArrayList<HashMap<String, Object>> mListItem;
+		HashMap<String, Object> item = null;
+		ArrayList<HashMap<String, Object>> mListItem = null;
 		mListItem = new ArrayList<HashMap<String, Object>>();
-		int length = mySubmittedFood.getCount();
+		int length = mySubmittedFood.getOrderedList().size();
 		for (int i = 0; i < length; i++) {
 			Food food = mySubmittedFood.getOrderedList().get(i);
 			item = new HashMap<String, Object>();
 			item.put("name", food.getName());
 			item.put("price", food.getPrice() + "元/份");
-			item.put("number", food.getNum() + "份");
+			item.put("number", food.getOrderedNum() + "份");
 			item.put("comment", food.getComment());
 			mListItem.add(item);
 		}
-
 		return mListItem;
 	}
-
 	/**
 	 * 结账按钮点击事件:主要完成，清空已下单菜集合，完成结账
 	 */
@@ -113,10 +109,10 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.btn_pay) {
 			if (loginUser != null) {
 				UpdatePdTask uptask = new UpdatePdTask(); // 创建模拟结账任务
-				uptask.execute(0); // 开始任务:参数进度初始值
+				uptask.execute(0);      // 开始任务:参数进度初始值
 			} else {
 				Toast.makeText(mContext, "抱歉，您未登录，请登录", Toast.LENGTH_SHORT)
-						.show(); // 未登录
+						.show();                                   // 未登录
 			}
 		}
 	}
@@ -127,7 +123,6 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 	 * 
 	 */
 	private class UpdatePdTask extends AsyncTask<Integer, Integer, String> {
-		private int current = 0; 
 		/**
 		 * 后台线程更新进度值，调用publishProgress将进度值反映到UI线程中
 		 * 进度条的目前精度，每个1s增加1，初始为0

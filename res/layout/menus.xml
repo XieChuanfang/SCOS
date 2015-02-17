@@ -12,4 +12,8 @@
         <item android:id="@+id/ask_for_service"
             android:showAsAction="ifRoom|withText"
             android:title="@string/ask_for_service" />
+         
+        <item android:id="@+id/start_update"
+            android:showAsAction="ifRoom|withText"
+            android:title="@string/start_update" />
  </menu>

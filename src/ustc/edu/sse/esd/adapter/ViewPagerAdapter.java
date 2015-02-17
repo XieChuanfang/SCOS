@@ -16,15 +16,14 @@ import android.support.v4.app.FragmentPagerAdapter;
  * @version 2.0
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-	private static final int TAB_INDEX_ONE = 0;
-	private static final int TAB_INDEX_TWO = 1;
-	private static final int TAB_INDEX_THREE = 2;
-	private static final int TAB_INDEX_FOUR = 3;
+	private static final int TAB_COOL_FOOD_INDEX = 0;
+	private static final int TAB_HOT_FOOD_INDEX = 1;
+	private static final int TAB_SEAFOOD_INDEX = 2;
+	private static final int TAB_DRINKS_INDEX = 3;
 
 	private String[] tabStr; // tab文本数组
 	private List<Fragment> fgs = null; // ViewPager数据源：fragment集合
 	private FragmentManager mFragmentManager; // fragment管理器
-	private Context context; // FoodView的上下文
 	private OnReloadListener mListener; // 当数据发生改变时的回调接口
 	private int mChildCount = 0;
 
@@ -34,21 +33,20 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 		super(fm);
 		this.fgs = fgs;
 		mFragmentManager = fm;
-		this.context = context;
 		this.tabStr = tabStr;
 	}
 
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
-		case TAB_INDEX_ONE:
-			return fgs.get(TAB_INDEX_ONE);
-		case TAB_INDEX_TWO:
-			return fgs.get(TAB_INDEX_TWO);
-		case TAB_INDEX_THREE:
-			return fgs.get(TAB_INDEX_THREE);
-		case TAB_INDEX_FOUR:
-			return fgs.get(TAB_INDEX_FOUR);
+		case TAB_COOL_FOOD_INDEX:
+			return fgs.get(TAB_COOL_FOOD_INDEX);
+		case TAB_HOT_FOOD_INDEX:
+			return fgs.get(TAB_HOT_FOOD_INDEX);
+		case TAB_SEAFOOD_INDEX:
+			return fgs.get(TAB_SEAFOOD_INDEX);
+		case TAB_DRINKS_INDEX:
+			return fgs.get(TAB_DRINKS_INDEX);
 		default:
 			break;
 		}
@@ -68,17 +66,17 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle(int position) {
 		String tabLabel = null;
 		switch (position) {
-		case TAB_INDEX_ONE:
-			tabLabel = tabStr[TAB_INDEX_ONE];
+		case TAB_COOL_FOOD_INDEX:
+			tabLabel = tabStr[TAB_COOL_FOOD_INDEX];
 			break;
-		case TAB_INDEX_TWO:
-			tabLabel = tabStr[TAB_INDEX_TWO];
+		case TAB_HOT_FOOD_INDEX:
+			tabLabel = tabStr[TAB_HOT_FOOD_INDEX];
 			break;
-		case TAB_INDEX_THREE:
-			tabLabel = tabStr[TAB_INDEX_THREE];
+		case TAB_SEAFOOD_INDEX:
+			tabLabel = tabStr[TAB_SEAFOOD_INDEX];
 			break;
-		case TAB_INDEX_FOUR:
-			tabLabel = tabStr[TAB_INDEX_FOUR];
+		case TAB_DRINKS_INDEX:
+			tabLabel = tabStr[TAB_DRINKS_INDEX];
 			break;
 		default:
 			break;
