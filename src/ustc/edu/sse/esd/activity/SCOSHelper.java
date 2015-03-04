@@ -26,7 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
 * Company: 中国科学技术大学 软件学院
 * 
 * @author moon：代码编写，star：代码整理
-* @version 2.0
+ * @version 5.0
 */
 public class SCOSHelper extends Activity {
 	private int[] drawables = { R.drawable.user_agreement,                              //帮助导航项图标

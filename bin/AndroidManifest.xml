@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ustc.edu.sse.esd.activity"
-    android:versionCode="1"
-    android:versionName="1.1" >    <!-- 改变版本 -->
+    android:versionCode="5"
+    android:versionName="5.0" >    <!-- 改变版本 -->
     
     <!-- 定义权限 -->
     <permission
         android:name="scos.permission.ACCESSSCOS" 
         android:protectionLevel="dangerous" >  
     </permission>
+    
+    <!-- 需要使用的权限 -->
+    <!-- 拨号权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 短信权限 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+  	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+  	<!-- 网络访问权限 -->
+  	<uses-permission android:name="android.permission.INTERNET"/>
+  	<!-- 开机事件的广播权限 -->
+  	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  	<!-- 获取系统真正运行任务的权限 -->
+  	<uses-permission android:name="android.permission.GET_TASKS" />  
    
     <uses-sdk
         android:minSdkVersion="8"
@@ -38,14 +51,52 @@
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN" />
                 <category android:name="scos.intent.category.SCOSLAUNCHER" />
+                <!-- DEFAULT必须加 -->
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        
           <!--LoginOrRegister  -->
           <activity
             android:name=".LoginOrRegister"
             android:label="@string/app_name" >
          </activity>
+          <!--FoodView  -->
+          <activity
+            android:name=".FoodView"
+            android:label="@string/app_name" >
+         </activity>
+          <!--FoodOrderView  -->
+          <activity
+            android:name=".FoodOrderView"
+            android:label="@string/app_name" >
+         </activity>
+          <!--FoodDetailed  -->
+          <activity
+            android:name=".FoodDetailed"
+            android:label="@string/app_name" >
+         </activity>
+          <!--SCOSHelper  -->
+          <activity
+            android:name=".SCOSHelper"
+            android:label="@string/app_name" >
+         </activity>
+          <!--ServerObserverService  -->
+          <service
+            android:name="ustc.edu.sse.esd.service.ServerObserverService"
+            android:process="ustc.edu.sse.esd.observerservice" >
+         </service>
+          <!--UpdateService  -->
+          <service
+            android:name="ustc.edu.sse.esd.service.UpdateService" >
+            <intent-filter> 
+				<action android:name="android.intent.action.update_service"/> 
+			</intent-filter>
+         </service>
+         <!-- DeviceStartedListener -->
+         <receiver android:name="ustc.edu.sse.esd.br.DeviceStartedListener" android:enabled="true"> 
+			<intent-filter> 
+				<action android:name="android.intent.action.BOOT_COMPLETED"/> 
+			</intent-filter> 
+		</receiver> 
     </application>
 </manifest>

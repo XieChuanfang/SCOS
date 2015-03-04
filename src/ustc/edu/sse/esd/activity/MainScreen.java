@@ -2,8 +2,8 @@ package ustc.edu.sse.esd.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import ustc.edu.sse.esd.activity.R;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.User;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,15 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 /**
  * 导航页activity，由此导航到点菜，查看订单，登录/注册和帮助
  *  Copyright: Copyright (c) 2015-2-1 19:23:25
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
- * 
+ * @version 5.0
  */
 public class MainScreen extends Activity {
 	private GridView gridView; // GridView对象
@@ -36,10 +34,10 @@ public class MainScreen extends Activity {
 	private User loginUser; // 当前登录用户名
 	private final static int myRequestCode = 1; // 请求activity返回结果常量
 	private final static int ITEM_NUM = 4; // 导航项个数
-	private static final int ORDER_ITEM_POSITION = 0; // 点菜在gridView中的position
-	private static final int CKECK_ORDER__ITEM_POSITION = 1; // 查看订单在gridView中的position
-	private static final int LOGIN_REGISTER__ITEM_POSITION = 2; // 登录注册在gridView中的position
-	private static final int HELP_ITEM_POSITION = 3; // 帮助在gridView中的position
+	public static final int ORDER_ITEM_POSITION = 0; // 点菜在gridView中的position
+	public static final int CKECK_ORDER__ITEM_POSITION = 1; // 查看订单在gridView中的position
+	public static final int LOGIN_REGISTER__ITEM_POSITION = 2; // 登录注册在gridView中的position
+	public static final int HELP_ITEM_POSITION = 3; // 帮助在gridView中的position
 	private static final int HIDE_INDEX = 2; // 如果隐藏导航项中的点菜和查看订单，则数据源从该下表开始加载
 	private static final int NOT_HIDE_INDEX = 0; // 如果不隐藏导航项中的点菜和查看订单，则数据源从该下表开始加载
 	private SharedPreferences mySharedPreferences;   //用户信息配置文件操作对象
@@ -57,7 +55,7 @@ public class MainScreen extends Activity {
 		mySharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
 		int loginState = mySharedPreferences.getInt("loginState", 0);
 		if(loginState != 0) { 
-			if (str.equals("FromEntry")) {
+			if (str.equals("FromEntry") | str.equals("UpdateService")) {
 				isHiden = false;
 				index = NOT_HIDE_INDEX;
 				Toast.makeText(MainScreen.this, str, Toast.LENGTH_SHORT).show();
@@ -70,6 +68,13 @@ public class MainScreen extends Activity {
 		displayMenu();
 	}
 	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		DBService ds = new DBService(this);
+		ds.clearOrderList();         //清空数据库表ORDERLIST
+		ds.clearSubmitList();        //清空数据库表SUBMITLIST
+	}
 	/**
 	 * 回调函数
 	 */
@@ -119,7 +124,7 @@ public class MainScreen extends Activity {
 
 		/* 创建适配器 */
 		SimpleAdapter saImageItems = new SimpleAdapter(this, items,
-				R.layout.navigation_menu,
+				R.layout.navigation_menu,  
 				new String[] { "imgItem", "txtItem" }, new int[] {
 						R.id.img_item, R.id.txt_item });
 
@@ -149,6 +154,7 @@ public class MainScreen extends Activity {
 			case CKECK_ORDER__ITEM_POSITION:
 				Intent intent2 = new Intent(MainScreen.this,
 						FoodOrderView.class);
+				intent2.putExtra("Entry", "MainScreen");
 				intent2.putExtra("login_user", loginUser);
 				startActivity(intent2); // 携带用户信息跳转到FoodOrderView
 				break;

@@ -1,0 +1,8 @@
+<resources>
+    <string name="createFood">CREATE TABLE IF NOT EXISTS FOOD (name VARCHAR(20) PRIMARY KEY,  price INTEGER, imageId VARCHAR(20), 
+        comment VARCHAR(50), classId INTEGER, leftNum INTEGER, isOrdered INTEGER) </string>   
+    <string name="createOrder">CREATE TABLE IF NOT EXISTS ORDERLIST (name VARCHAR(20) PRIMARY KEY, orderedNum INTEGER, 
+        isSubmitted INTEGER, FOREIGN KEY(name) REFERENCES Food(name)) </string>   
+    <string name="createSubmittedOrder">CREATE TABLE IF NOT EXISTS SUBMITLIST (name VARCHAR(20) PRIMARY KEY, orderedNum INTEGER, 
+       	FOREIGN KEY(name) REFERENCES ORDERLIST(name)) </string>   
+</resources>

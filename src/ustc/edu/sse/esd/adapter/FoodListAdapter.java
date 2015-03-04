@@ -1,13 +1,10 @@
 package ustc.edu.sse.esd.adapter;
 
 import java.util.ArrayList;
-
-import ustc.edu.sse.esd.activity.FoodView;
 import ustc.edu.sse.esd.activity.R;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.Food;
-import ustc.edu.sse.esd.model.OrderedFood;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,7 @@ import android.widget.Toast;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class FoodListAdapter extends BaseAdapter {
 	private Holder holder;
@@ -32,14 +29,12 @@ public class FoodListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ArrayList<Food> fList;
 	private Food food;
-	private OrderedFood myOrderedFood; // 已点菜品集合对象，即一个订单
 
 	public FoodListAdapter(Context mContext, ArrayList<Food> fList) {
 		super();
 		this.mContext = mContext; // 获取当前的上下文
 		this.fList = fList;
 		this.inflater = LayoutInflater.from(mContext); // 获取布局文件加载器
-		this.myOrderedFood = FoodView.myOrderedFood;
 	}
 
 	/**
@@ -100,36 +95,12 @@ public class FoodListAdapter extends BaseAdapter {
 		holder.button.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				int i;
-				Food food = fList.get(position); // 重新获取点击位置的food对象，
-				food.setOrdered(true); // 将该菜品的点菜状态设为已点
-				food.setOrderedNum(1); //将该菜品已点数量设为1
-				button.setText(R.string.btn_cancel_order); // 修改按钮为“退点”
-				
-				int imageId = food.getImageId(); 
-				int length = myOrderedFood.getOrderedList().size();        //获得当前未下单菜品集合大小
-				if(length > 0) {
-					for(i = 0; i < length; i++) {                  //遍历集合，如果找到，则将当前菜品ordered_num加1即可，否则，将整个food加到集合中
-						Food tempFood = myOrderedFood.getOrderedList().get(i);
-						if(imageId == tempFood.getImageId()) {
-							int tempOrdered_num = tempFood.getOrderedNum();
-							Log.e("aSdgsdg", tempOrdered_num + "");
-							tempFood.setOrderedNum(++tempOrdered_num);    //已点数量加1
-							break;
-						} 
-					}
-					//遍历集合没有找到， 将整个food加到集合中
-					if(i == length) {
-						myOrderedFood.getOrderedList().add(food);
-					}
-				} else {
-					myOrderedFood.getOrderedList().add(food);  // 将该food实例加入“未下单菜”集合:此时队列为空
-				}
-				int tempCount = myOrderedFood.getCount();
-				myOrderedFood.setCount(++tempCount); // 修改数量
-				int tempTotalCost = myOrderedFood.getTotalCost();
-				myOrderedFood.setTotalCost(tempTotalCost + food.getPrice()); // 修改总价
+			public void onClick(View v) {   
+				Food food = fList.get(position); // 重新获取点击位置的food对象
+				DBService ds = new DBService(mContext);
+				ds.update(food);       //更新food表
+				ds.insertOrder(food);            //插入order表
+				button.setText(R.string.btn_cancel_order);    // 修改按钮为“退点”  
 				Toast.makeText(mContext, "点菜成功！", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -138,10 +109,8 @@ public class FoodListAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * ListView Tag标记
-	 * 
+	 * ListView Tag标记    
 	 * @author moon
-	 * 
 	 */
 	protected class Holder {
 		ImageView image;
@@ -150,5 +119,4 @@ public class FoodListAdapter extends BaseAdapter {
 		TextView leftNum;
 		Button button;
 	}
-
 }

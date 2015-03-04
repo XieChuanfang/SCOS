@@ -3,9 +3,8 @@ package ustc.edu.sse.esd.fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import ustc.edu.sse.esd.activity.FoodView;
 import ustc.edu.sse.esd.activity.R;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.Food;
 import ustc.edu.sse.esd.model.OrderedFood;
 import ustc.edu.sse.esd.model.User;
@@ -31,7 +30,7 @@ import android.widget.Toast;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 	private OrderedFood mySubmittedFood; // 已点但已下单菜品集合
@@ -45,12 +44,14 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 	public SubmittedOrderedFrag(Context mContext, User loginUser) {
 		super();
 		this.mContext = mContext;
-		this.mySubmittedFood = FoodView.mySubmittedFood;
+		this.mySubmittedFood = new OrderedFood();
 		this.loginUser = loginUser;
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		DBService ds = new DBService(mContext);
+		ds.getSubmittedList(mySubmittedFood);    //从数据库中获取已提交订单菜品对象
 
 	}
 	/**
@@ -186,6 +187,8 @@ public class SubmittedOrderedFrag extends Fragment implements OnClickListener {
 							mySubmittedFood.getOrderedList().clear();
 							mySubmittedFood.setCount(0);
 							mySubmittedFood.setTotalCost(0);
+							DBService ds = new DBService(mContext);
+							ds.clearSubmitList();   //清空数据库表SUBMITLIST
 						}
 
 					});

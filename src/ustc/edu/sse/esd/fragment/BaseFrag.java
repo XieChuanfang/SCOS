@@ -2,10 +2,10 @@ package ustc.edu.sse.esd.fragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import ustc.edu.sse.esd.activity.FoodDetailed;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.FoodListAdapter;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.Food;
 import android.content.Context;
 import android.content.Intent;
@@ -25,17 +25,26 @@ import android.widget.ListView;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class BaseFrag extends Fragment {
-	private Context mContext; // FoodView上下文
-	private ArrayList<Food> fList; // 相应菜品的Food类集合
-	private FoodListAdapter adapter;
+	private Context mContext;        // FoodView上下文
+	private ArrayList<Food> fList;   // 相应菜品的Food类集合
+	private FoodListAdapter adapter;  
+	private int classId;             //当前fragment加载的菜品类别ID
 
 	/* 构造fragment */
-	public BaseFrag(ArrayList<Food> fList, Context context) {
-		this.fList = fList;
+	public BaseFrag(int classId, Context context) {
 		this.mContext = context;
+		this.classId = classId;
+		fList = new ArrayList<Food>();
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		DBService ds = new DBService(mContext);
+		ds.select(classId, fList);         //从数据库表FOOD中加载当前菜品类别的菜品数据
 	}
 
 	/**
@@ -57,11 +66,10 @@ public class BaseFrag extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				Intent intent = new Intent(getActivity(), FoodDetailed.class);
 				intent.putExtra("food_list", (Serializable) fList);
 				intent.putExtra("position", position);
-				startActivity(intent);
+				startActivity(intent);  
 			}
 		});
 

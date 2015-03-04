@@ -1,7 +1,6 @@
 package ustc.edu.sse.esd.model;
 
 import java.io.Serializable;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,9 +11,10 @@ import android.os.Parcelable;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class Food implements Serializable, Parcelable {
+	private static final long serialVersionUID = 1L;
 	public final static int COOL_FOOD_ID = 1;               
 	public final static int HOT_FOOD_ID = 2;
 	public final static int SEAFOOD_ID = 3;

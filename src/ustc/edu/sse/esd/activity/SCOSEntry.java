@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 
 public class SCOSEntry extends Activity implements OnTouchListener,

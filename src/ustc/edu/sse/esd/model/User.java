@@ -8,9 +8,10 @@ import java.io.Serializable;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;
 	private boolean oldUser;

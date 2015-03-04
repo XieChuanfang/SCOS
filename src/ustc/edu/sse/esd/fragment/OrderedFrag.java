@@ -1,10 +1,9 @@
 package ustc.edu.sse.esd.fragment;
 
 import ustc.edu.sse.esd.activity.FoodOrderView;
-import ustc.edu.sse.esd.activity.FoodView;
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.OrderListAdapter;
-import ustc.edu.sse.esd.model.Food;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.OrderedFood;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import android.widget.TextView;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class OrderedFrag extends Fragment implements OnClickListener {
 	private ListView listView; // ListView对象
@@ -36,7 +35,7 @@ public class OrderedFrag extends Fragment implements OnClickListener {
 	public OrderedFrag(Context mContext) {
 		super();
 		this.mContext = mContext;
-		this.myOrderedFood = FoodView.myOrderedFood;
+		myOrderedFood = new OrderedFood();
 	}
 
 	@Override
@@ -59,13 +58,14 @@ public class OrderedFrag extends Fragment implements OnClickListener {
 		button = (Button) mMainView.findViewById(R.id.btn_submit);
 		button.setOnClickListener(this); // 为提交订单按钮设置监听器
 		// 创建ListView适配器
+		DBService ds = new DBService(mContext);
+		ds.getOrderedList(myOrderedFood);       //从数据库中获取已点菜品对象  
 		myOrderListAdapter = new OrderListAdapter(myOrderedFood, mContext,
 				textView);
 		/* 为ViewPager设置适配器 */
 		listView.setAdapter(myOrderListAdapter);
 		textView.setText("菜品总数：" + myOrderedFood.getCount() + "份" + "      "
 				+ "订单总价: " + myOrderedFood.getTotalCost() + "元");
-
 		return mMainView;
 	}
 
@@ -75,24 +75,10 @@ public class OrderedFrag extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.btn_submit) {
-			int count1 = myOrderedFood.getCount();
-			int totalCost1 = myOrderedFood.getTotalCost();
-			OrderedFood submittedFood = FoodView.mySubmittedFood;
-			/* 将未下单菜品集合拷贝到已下单菜品集合中 */
-			int length = myOrderedFood.getOrderedList().size();       
-			for (int i = 0; i < length; i++) {
-				Food f = myOrderedFood.getOrderedList().get(i);
-				submittedFood.getOrderedList().add(f);
-			}
-			int count2 = submittedFood.getCount();
-			int totalCost2 = submittedFood.getTotalCost();
-			submittedFood.setCount(count1 + count2);
-			submittedFood.setTotalCost(totalCost1 + totalCost2);
-
-			/* 将未下单菜品集合清空 */
-			myOrderedFood.getOrderedList().clear();
-			myOrderedFood.setCount(0);
-			myOrderedFood.setTotalCost(0);
+			DBService ds = new DBService(mContext);
+			ds.updateOrderList();          //更新ORDERLIST中的菜品为已提交
+			ds.insertSubmitList();         //初始化SUBMITLIST表
+			ds.clearOrderList();           //清空ORDERLIST表
 			// 更新整个ViewPager
 			FoodOrderView a = (FoodOrderView) getActivity();
 			/* 刷新FoodOrderView视图:重新加载ViewPager的两个fragment，执行更新操作 */

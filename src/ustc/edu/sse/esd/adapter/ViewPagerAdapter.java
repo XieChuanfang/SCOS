@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 	private static final int TAB_COOL_FOOD_INDEX = 0;

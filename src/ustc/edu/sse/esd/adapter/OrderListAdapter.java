@@ -2,6 +2,7 @@ package ustc.edu.sse.esd.adapter;
 
 import java.util.ArrayList;
 import ustc.edu.sse.esd.activity.R;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.model.Food;
 import ustc.edu.sse.esd.model.OrderedFood;
 import android.content.Context;
@@ -20,7 +21,7 @@ import android.widget.Toast;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class OrderListAdapter extends BaseAdapter {
 	private OrderedFood myOrderedFood; // 已点菜品集合对象
@@ -32,10 +33,10 @@ public class OrderListAdapter extends BaseAdapter {
 	public OrderListAdapter(OrderedFood myOrderedFood, Context mContext,
 			TextView textView) {
 		super();
-		this.myOrderedFood = myOrderedFood;
 		this.mContext = mContext;
-		this.inflater = LayoutInflater.from(mContext); // 获取布局文件加载器;
-		this.fList = myOrderedFood.getOrderedList(); // 获取已点food集合
+		this.inflater = LayoutInflater.from(mContext);  // 获取布局文件加载器;
+		this.myOrderedFood = myOrderedFood;             //获取已点菜品对象
+		this.fList = myOrderedFood.getOrderedList();    //获取已点菜品集合
 		this.textView = textView;
 	}
 
@@ -82,7 +83,6 @@ public class OrderListAdapter extends BaseAdapter {
 		holder.price.setText(orderFood.getPrice() + "元/份");
 		holder.number.setText(orderFood.getOrderedNum() + "份");
 		holder.comment.setText(orderFood.getComment());
-		final Button button = holder.button;
 		/*
 		 * 为退点button设置监听事件； 主要完成两件事：
 		 * 1，在orderedList中将退点的food对象删除并修改orderedList对象的属性 2, 更新ListView
@@ -91,31 +91,21 @@ public class OrderListAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				Food cancelFood = fList.get(position); // 获取当前删除的food对象
-				int totalCount = myOrderedFood.getCount();
-				myOrderedFood.setCount(--totalCount); // 更改总数量
-				int totalCost = myOrderedFood.getTotalCost();
-				totalCost = totalCost - cancelFood.getPrice();
-				myOrderedFood.setTotalCost(totalCost); // 更改总价
-				//如果当前该菜数量超过1，则修改orderedNum即可，否则，删除集合cancelFood
-				int orderedNum = cancelFood.getOrderedNum();
-				if(orderedNum > 1) {
-					cancelFood.setOrderedNum(--orderedNum);        //已点数量减1
-				} else {
-					fList.remove(position); // 从数据集中删除cancelFood
-				}
-
+				Food cancelFood = fList.get(position);     // 获取当前删除的food对象
+				DBService ds = new DBService(mContext);
+				ds.deleteOrderFood(cancelFood);            //更新ORDERLIST表
+				myOrderedFood.setCount(0);                 //清空myOrderedFood对象
+				myOrderedFood.setTotalCost(0);
+				myOrderedFood.getOrderedList().clear();
+				ds.getOrderedList(myOrderedFood);         //重新从数据库中获取已点菜品对象
 				// 通知系统更新ListView
 				OrderListAdapter.this.notifyDataSetChanged();
-
 				// 更新textView上的统计信息
-				textView.setText("菜品总数：" + totalCount + "份" + "      "
-						+ "订单总价: " + totalCost + "元");
-
+				textView.setText("菜品总数：" + myOrderedFood.getCount() + "份" + "      "
+						+ "订单总价: " + myOrderedFood.getTotalCost() + "元");
 				Toast.makeText(mContext, "退点成功！", Toast.LENGTH_SHORT).show();
 			}
 		});
-
 		return convertView;
 	}
 

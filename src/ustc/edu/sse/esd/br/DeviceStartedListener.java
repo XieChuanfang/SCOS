@@ -9,7 +9,7 @@ import android.content.Intent;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 3.0
+ * @version 5.0
  */
 public class DeviceStartedListener extends BroadcastReceiver {
 

@@ -5,10 +5,13 @@ import java.util.List;
 
 import ustc.edu.sse.esd.activity.R;
 import ustc.edu.sse.esd.adapter.ViewPagerAdapter;
+import ustc.edu.sse.esd.db.DBService;
 import ustc.edu.sse.esd.fragment.OrderedFrag;
 import ustc.edu.sse.esd.fragment.SubmittedOrderedFrag;
+import ustc.edu.sse.esd.model.Food;
 import ustc.edu.sse.esd.model.OnReloadListener;
 import ustc.edu.sse.esd.model.User;
+import ustc.edu.sse.esd.util.XMLReader;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
@@ -25,7 +28,7 @@ import android.support.v4.view.ViewPager;
  * Company: 中国科学技术大学 软件学院
  * 
  * @author moon：代码编写，star：代码整理
- * @version 2.0
+ * @version 5.0
  */
 public class FoodOrderView extends FragmentActivity implements TabListener {
 	private List<Fragment> fragmentList; // fragment集合
@@ -33,7 +36,8 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 	private ViewPager mViewPager; // ViewPager对象
 	private ViewPagerAdapter mViewPagerAdapter; // ViewPager适配器对象
 	private User loginUser; // 当前登录用户
-
+	private DBService ds;              //数据库操作对象
+	private ArrayList<Food> fList = new ArrayList<Food>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +45,14 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 		mViewPager = (ViewPager) findViewById(R.id.food_order_pager); // 创建ViewPager对象
 
 		loginUser = (User) getIntent().getSerializableExtra("login_user"); // 获得当前用户对象
+		String tag = getIntent().getStringExtra("Entry");                   
 		int position = getIntent().getIntExtra("position", 0); // 得到显示Fragment的Position
+		if(tag.equals("MainScreen")) {                         //如果从MainScreen进入，则需要初始化FOOD表
+			XMLReader.context = this;
+			XMLReader.getDataFromXML(fList );
+			ds = new DBService(this);
+			initDB(fList);          //初始化数据库表FOOD     
+		}
 		/* 初始化fragment集合 */
 		fragmentList = new ArrayList<Fragment>();
 		fragmentList.add(new OrderedFrag(FoodOrderView.this));
@@ -54,6 +65,13 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 	}
 
 	/**
+	 * 将菜品信息插入数据库
+	 */
+	private void initDB(ArrayList<Food> fList) {
+		for(int i = 0; i < fList.size(); i++)
+			ds.insertFood(fList.get(i));
+	}
+	/**
 	 * 设置actionBar属性
 	 */
 	private void setUpActionBar() {
@@ -63,7 +81,6 @@ public class FoodOrderView extends FragmentActivity implements TabListener {
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayShowHomeEnabled(false);
 	}
-
 	/**
 	 * 为ViewPager设置监听事件
 	 */
